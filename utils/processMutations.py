@@ -11,6 +11,8 @@ import numpy
 import random
 import utils
 from scipy.cluster.hierarchy import linkage, fcluster,dendrogram
+import matplotlib.pyplot as plt
+
 
 alpha = 0.7
 mutations_min = 6
@@ -66,7 +68,9 @@ def gnmfsingle(X, W, nclust, gamma, maxiter, tolerance):
 cons = utils.consensus(gnmfsingle,mutation_smooth, [data['knn'],nclust, gamma, maxiter, tolerance], bootstrap = 0.8,rep = 100)
 
 ######take from stratipy modules
-zmatrix = linkage(cons)
+zmatrix = linkage(cons,method='average')
 clusters = fcluster(zmatrix,1)
 dend = dendrogram(zmatrix,count_sort='ascending')
 
+idx=numpy.array(dend['leaves'])
+plt.imshow(cons[idx,:][:,idx])
