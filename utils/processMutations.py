@@ -74,3 +74,13 @@ dend = dendrogram(zmatrix,count_sort='ascending')
 
 idx=numpy.array(dend['leaves'])
 plt.imshow(cons[idx,:][:,idx])
+
+plt.plot(range(1, len(zmatrix)+1), zmatrix[::-1, 2])
+knee = numpy.diff(zmatrix[::-1, 2], 2)
+plt.plot(range(2, len(zmatrix)), knee)
+
+num_clust1 = knee.argmax() + 2
+knee[knee.argmax()] = 0
+num_clust2 = knee.argmax() + 2
+
+plt.text(num_clust1, zmatrix[::-1, 2][num_clust1-1], 'possible\n<- knee point')
