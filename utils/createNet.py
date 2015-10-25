@@ -54,9 +54,9 @@ influence = influence.multiply(mat)
 ##a bit slow solution, can be improved
 vals = sp.find(influence)
 vals = pandas.DataFrame({'i':vals[0],'j':vals[1],'v':vals[2]})
-vals = vals.groupby('i').apply(lambda x:x.ix[x['v'].rank(method='max',ascending=False) < k]).reset_index(drop=True)
+vals = vals.groupby('i').apply(lambda x:x.ix[x['v'].rank(method='max',ascending=False) <= k]).reset_index(drop=True)
 vals['v'] = 1
-knn = sp.csr_matrix((vals['v'],(vals['i'],vals['j'])))
+knn = sp.csr_matrix((vals['v'],(vals['i'],vals['j'])),shape=mat.shape)
 knn = mat.multiply(knn)
 knn = knn + knn.T
 knn.data[knn.data > 0] = 1

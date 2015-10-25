@@ -66,7 +66,7 @@ def gnmfsingle(X, W, nclust, gamma, maxiter, tolerance):
 cons = utils.consensus(gnmfsingle,mutation_smooth, [data['knn'],nclust, gamma, maxiter, tolerance], bootstrap = 0.8,rep = 100)
 
 ######take from stratipy modules
-#zmatrix = linkage(cons)
-#clusters = fcluster(zmatrix,1)
-#dend = dendrogram(zmatrix,count_sort='ascending')
+zmatrix = linkage(cons)
+clusters = fcluster(zmatrix,1)
+dend = dendrogram(zmatrix,count_sort='ascending')
 

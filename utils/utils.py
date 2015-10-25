@@ -38,7 +38,7 @@ def gnmf(X, W, nclust, gamma = 0, maxiter = 100, tolerance = .001):
     
     for i in xrange(maxiter):
         obj = norm(X - U*V.T)
-        print "Iteration :",i,"gamma :",gamma,"Objective :",obj,"norm approx :",norm(U*V.T),"norm :",norm(X)
+#        print "Iteration :",i,"gamma :",gamma,"Objective :",obj,"norm approx :",norm(U*V.T),"norm :",norm(X)
     
         un = X * V + gamma * W * U
         ud = U * V.T * V + gamma * D * U
@@ -75,6 +75,7 @@ def consensus(func,X,fargs,**kwargs):
     similarity = numpy.zeros((nsamples,nsamples))
     indicator = numpy.zeros((nsamples,nsamples))
     for i in range(rep):
+	print 'Repetition :',i
         thisgenes = numpy.random.random_integers(0,1,int(bootstrap*ngenes)).astype(bool)
         thissamples = numpy.random.random_integers(0,1,int(bootstrap*nsamples)).astype(bool)
         thisX = copy.deepcopy(X)
