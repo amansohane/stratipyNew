@@ -90,3 +90,5 @@ def consensus(func,X,fargs,**kwargs):
     con = 1.0*similarity/indicator
     return numpy.nan_to_num(con)
     
+
+    

@@ -18,8 +18,8 @@ To Add:
 
 alpha = 0.7
 k = 11
-thresh = 10**-2
-topedges = 0.01 ##% of top edges to keep in network
+thresh = 10**-6
+topedges = 0.1 ##% of top edges to keep in network
 
 ##read network and keep top 10% edges by weight and put all weights as 1, to show whether there is a connection or not
 net = numpy.loadtxt('../res/HumanNet.v1.join.txt',delimiter='\t',usecols = [0,1,23])
