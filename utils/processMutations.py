@@ -56,7 +56,7 @@ mutations_temp[:,tokeep_geneindex] = mutations[:,tokeep_thisindex]
 mutations = sp.csr_matrix(mutations_temp)
 
 mutation_smooth = utils.diffuse(mutations,data['adj'],alpha,diff_thresh)
-#quantile normalisation
+mutation_smooth_norm = sp.csr_matrix(utils.quantile_normalization(numpy.array(mutation_smooth.todense())),shape=mutation_smooth.shape)
 
 #U,V = utils.gnmf(mutation_smooth,data['knn'],nclust, gamma, maxiter, tolerance)
 #labels = numpy.array(V.todense().argmax(axis=1))[:,0]
@@ -65,7 +65,7 @@ def gnmfsingle(X, W, nclust, gamma, maxiter, tolerance):
     U,V = utils.gnmf(X, W ,nclust, gamma, maxiter, tolerance)
     return numpy.array(V.todense().argmax(axis=1))[:,0]
 
-cons = utils.consensus(gnmfsingle,mutation_smooth, [data['knn'],nclust, gamma, maxiter, tolerance], bootstrap = 0.8,rep = 100)
+cons = utils.consensus(gnmfsingle,mutation_smooth_norm, [data['knn'],nclust, gamma, maxiter, tolerance], bootstrap = 0.8,rep = 100)
 
 ######take from stratipy modules
 zmatrix = linkage(cons,method='average')

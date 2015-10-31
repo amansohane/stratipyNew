@@ -23,6 +23,13 @@ def diffuse(raw,mat,alpha=0.7,thresh=10**-6):
         print diff      
     return x
 
+def quantile_normalization(anarray):
+    A = anarray.T
+    AA = numpy.zeros_like(A)
+    I = numpy.argsort(A,axis=0)
+    AA[I,numpy.arange(A.shape[1])] = numpy.mean(A[I,numpy.arange(A.shape[1])],axis=1)[:,numpy.newaxis]
+    return AA.T
+        
 def gnmf(X, W, nclust, gamma = 0, maxiter = 100, tolerance = .001):
 # X is patients X genes
 # X = UV
@@ -32,9 +39,9 @@ def gnmf(X, W, nclust, gamma = 0, maxiter = 100, tolerance = .001):
     X = X.T
     D = sp.dia_matrix((W.sum(axis=0),[0]),shape = W.shape)
     eps =  10**-14
-    ngenes, npatients = X.shape
+    ngenes, numpyatients = X.shape
     U = sp.lil_matrix(numpy.random.random((ngenes,nclust)))
-    V = sp.lil_matrix(numpy.random.random((npatients,nclust)))
+    V = sp.lil_matrix(numpy.random.random((numpyatients,nclust)))
     
     for i in xrange(maxiter):
         obj = norm(X - U*V.T)
